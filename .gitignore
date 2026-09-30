@@ -33,3 +33,4 @@ scripts/demoSingle.json
 *.njsproj
 *.sln
 *.sw?
+.vercel
