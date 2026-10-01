@@ -643,22 +643,23 @@ button {
   border: 1px solid var(--color-border);
 }
 
-/* A3横1枚＝A4縦2ページ分を横に並べたシート。原本の「A3両面印刷用」と同じ構成。 */
+/* 画面プレビューでは、以前と同じく各半分を縦に積んだ単独ページとして見せる
+   （読みやすさ優先）。左右2カラムに並べるのは印刷・PDF出力時のみ。 */
 .print-page-a3 {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
+  display: block;
 }
 
 .print-a3-half {
-  flex: 1 1 50%;
-  min-width: 0;
   box-sizing: border-box;
   padding: 28px 32px;
 }
 
-.print-a3-half:first-child {
-  border-right: 1px dashed #bbb;
+.print-a3-half + .print-a3-half {
+  border-top: 1px solid var(--color-border);
+}
+
+.print-a3-half-blank {
+  display: none;
 }
 
 .print-a3-half-blank {
@@ -996,6 +997,12 @@ button {
   align-items: center;
   gap: 3px;
   justify-content: center;
+  min-width: 0;
+}
+
+.rom-ruler-svg {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .rom-axis-label {
@@ -1010,10 +1017,6 @@ button {
 
 .rom-axis-label-right {
   text-align: left;
-}
-
-.rom-ruler-svg {
-  flex-shrink: 0;
 }
 
 .rom-ruler-over {
@@ -1100,6 +1103,24 @@ button {
   .print-page:last-child {
     page-break-after: auto;
     break-after: auto;
+  }
+  /* A3横1枚＝A4縦2ページ分を横に並べる。原本の「A3両面印刷用」と同じ構成。 */
+  .print-page-a3 {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .print-a3-half {
+    flex: 1 1 50%;
+    width: 50%;
+    min-width: 0;
+  }
+  .print-a3-half + .print-a3-half {
+    border-top: none;
+    border-left: 1px dashed #bbb;
+  }
+  .print-a3-half-blank {
+    display: block;
   }
 }
 

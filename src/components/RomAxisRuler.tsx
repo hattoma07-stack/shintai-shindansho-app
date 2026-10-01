@@ -56,7 +56,12 @@ export function RomAxisRuler({
   const midY = baseY + height / 2;
 
   return (
-    <svg width={width} height={topY + height + 6} className="rom-ruler-svg">
+    <svg
+      viewBox={`0 0 ${width} ${topY + height + 6}`}
+      className="rom-ruler-svg"
+      style={{ width: "100%", maxWidth: width, height: "auto", display: "block" }}
+      preserveAspectRatio="xMidYMid meet"
+    >
       {/* 参考ROM値を超える範囲（グレー） */}
       {negScale > 0 && (
         <rect
