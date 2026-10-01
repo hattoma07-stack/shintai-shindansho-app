@@ -641,7 +641,28 @@ button {
 .print-page {
   background: #fff;
   border: 1px solid var(--color-border);
+}
+
+/* A3横1枚＝A4縦2ページ分を横に並べたシート。原本の「A3両面印刷用」と同じ構成。 */
+.print-page-a3 {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.print-a3-half {
+  flex: 1 1 50%;
+  min-width: 0;
+  box-sizing: border-box;
   padding: 28px 32px;
+}
+
+.print-a3-half:first-child {
+  border-right: 1px dashed #bbb;
+}
+
+.print-a3-half-blank {
+  padding: 0;
 }
 
 .print-doc {
@@ -1054,6 +1075,10 @@ button {
 }
 
 @media print {
+  @page {
+    size: A3 landscape;
+    margin: 10mm;
+  }
   .no-print {
     display: none !important;
   }
@@ -1069,8 +1094,12 @@ button {
   }
   .print-page {
     border: none;
-    padding: 0;
     page-break-after: always;
+    break-after: page;
+  }
+  .print-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
   }
 }
 

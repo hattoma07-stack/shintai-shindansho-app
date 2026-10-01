@@ -6,7 +6,7 @@ import { createPatient, deletePatient, fetchPatients, newPatientId, updatePatien
 import { PatientListPage } from "./components/PatientListPage";
 import { PatientEditor } from "./components/PatientEditor";
 
-const SAVE_DEBOUNCE_MS = 800;
+const SAVE_DEBOUNCE_MS = 15000;
 
 function App() {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -15,12 +15,41 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
   const saveTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+  // デバウンス待ちの未保存データ。画面遷移時や閉じるときに即座に保存するために使う。
+  const pendingPatients = useRef<Record<string, Patient>>({});
+
+  const flushSave = (id: string) => {
+    const pending = pendingPatients.current[id];
+    if (!pending) return;
+    clearTimeout(saveTimers.current[id]);
+    delete saveTimers.current[id];
+    delete pendingPatients.current[id];
+    updatePatient(pending).catch((e) => setSaveError(e instanceof Error ? e.message : String(e)));
+  };
+
+  const flushAll = () => {
+    for (const id of Object.keys(pendingPatients.current)) flushSave(id);
+  };
 
   useEffect(() => {
     fetchPatients()
       .then((list) => setPatients(list))
       .catch((e) => setError(e instanceof Error ? e.message : String(e)))
       .finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    // タブを閉じる・リロードする・バックグラウンドに回る前に、保留中の変更を保存する
+    const handleBeforeUnload = () => flushAll();
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") flushAll();
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
   const selected = patients.find((p) => p.id === selectedId) ?? null;
@@ -41,6 +70,7 @@ function App() {
     // 削除後に保留中の自動保存が走って復活してしまわないよう、先にタイマーを止める
     clearTimeout(saveTimers.current[id]);
     delete saveTimers.current[id];
+    delete pendingPatients.current[id];
     setPatients((prev) => prev.filter((p) => p.id !== id));
     if (selectedId === id) setSelectedId(null);
     try {
@@ -53,11 +83,21 @@ function App() {
   const handleChange = (p: Patient) => {
     const updated = { ...p, updatedAt: Date.now() };
     setPatients((prev) => prev.map((existing) => (existing.id === updated.id ? updated : existing)));
+    pendingPatients.current[updated.id] = updated;
 
     clearTimeout(saveTimers.current[updated.id]);
-    saveTimers.current[updated.id] = setTimeout(() => {
-      updatePatient(updated).catch((e) => setSaveError(e instanceof Error ? e.message : String(e)));
-    }, SAVE_DEBOUNCE_MS);
+    saveTimers.current[updated.id] = setTimeout(() => flushSave(updated.id), SAVE_DEBOUNCE_MS);
+  };
+
+  // 患者を切り替える・一覧に戻るときは、待たずにすぐ保存する
+  const handleSelect = (id: string) => {
+    if (selectedId) flushSave(selectedId);
+    setSelectedId(id);
+  };
+
+  const handleBack = () => {
+    if (selectedId) flushSave(selectedId);
+    setSelectedId(null);
   };
 
   if (loading) {
@@ -91,11 +131,11 @@ function App() {
         </div>
       )}
       {selected ? (
-        <PatientEditor patient={selected} onChange={handleChange} onBack={() => setSelectedId(null)} />
+        <PatientEditor patient={selected} onChange={handleChange} onBack={handleBack} />
       ) : (
         <PatientListPage
           patients={patients}
-          onSelect={setSelectedId}
+          onSelect={handleSelect}
           onCreate={handleCreate}
           onDelete={handleDelete}
         />

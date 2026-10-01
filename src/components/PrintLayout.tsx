@@ -55,8 +55,9 @@ export function PrintLayout({ patient }: { patient: Patient }) {
 
   return (
     <div className="print-layout">
-      {/* ============ 総括表 ============ */}
-      <section className="print-page print-doc">
+      {/* ============ A3シート1：総括表（左半分）＋ 空白（右半分） ============ */}
+      <section className="print-page print-page-a3">
+        <div className="print-a3-half print-doc">
         <h1 className="doc-title">身体障害者診断書・意見書（肢体不自由障害用）</h1>
         <h2 className="doc-subtitle">総括表</h2>
 
@@ -241,10 +242,13 @@ export function PrintLayout({ patient }: { patient: Patient }) {
             <span>障害区分や等級決定のため、愛知県から改めて次ページ以降の部分についてお問合せをする場合があります。</span>
           </div>
         </div>
+        </div>
+        <div className="print-a3-half print-a3-half-blank" aria-hidden="true" />
       </section>
 
-      {/* ============ 肢体不自由の状況及び所見 ============ */}
-      <section className="print-page print-doc">
+      {/* ============ A3シート2：肢体不自由の状況及び所見（左半分）＋ ROM・MMT測定表（右半分） ============ */}
+      <section className="print-page print-page-a3">
+        <div className="print-a3-half print-doc">
         <div className="doc-annex">別紙３</div>
         <h2 className="doc-subtitle">肢体不自由の状況及び所見</h2>
         <p className="doc-small">
@@ -382,10 +386,10 @@ export function PrintLayout({ patient }: { patient: Patient }) {
             </span>
           </div>
         </div>
-      </section>
+        </div>
 
-      {/* ============ ROM・MMT測定表 ============ */}
-      <section className="print-page print-doc">
+        {/* ============ ROM・MMT測定表（右半分） ============ */}
+        <div className="print-a3-half print-doc">
         <h2 className="doc-subtitle">関節可動域 (ROM) と筋力テスト (MMT)</h2>
         <p className="doc-small">※ この表は必要な部分を記入　　筋力テスト（　）　　関節可動域　　筋力テスト（　）</p>
 
@@ -432,6 +436,7 @@ export function PrintLayout({ patient }: { patient: Patient }) {
               関節可動域は、他動的可動域を原則とする。関節可動域は、基本肢位を0度とする日本整形外科学会日本リハビリテーション医学会の指定する表示法とする。筋力については、0〜5の6段階（0：消失、1〜2：著減、3：半減、4〜5：正常又はやや減）で記入する。
             </span>
           </div>
+        </div>
         </div>
       </section>
     </div>
