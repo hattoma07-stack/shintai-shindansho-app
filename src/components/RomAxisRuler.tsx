@@ -63,13 +63,15 @@ export function RomAxisRuler({
       preserveAspectRatio="xMidYMid meet"
     >
       {/* 参考ROM値を超える範囲（グレー） */}
+      {/* html-to-image でのPDF書き出し時にSVGのCSSクラス指定（fill/stroke）が
+          反映されないことがあるため、スタイルはここでインライン属性として直接指定する。 */}
       {negScale > 0 && (
         <rect
           x={Math.min(degToX(-negRef), degToX(-negScale))}
           y={baseY}
           width={Math.abs(degToX(-negRef) - degToX(-negScale))}
           height={height}
-          className="rom-ruler-over"
+          fill="#aaaaaa"
         />
       )}
       <rect
@@ -77,7 +79,7 @@ export function RomAxisRuler({
         y={baseY}
         width={Math.abs(degToX(posScale) - degToX(posRef))}
         height={height}
-        className="rom-ruler-over"
+        fill="#aaaaaa"
       />
       {/* 参考ROM値内（白） */}
       <rect
@@ -85,17 +87,17 @@ export function RomAxisRuler({
         y={baseY}
         width={Math.abs(degToX(posRef) - degToX(-negRef))}
         height={height}
-        className="rom-ruler-normal"
+        fill="#ffffff"
       />
       {/* 外枠 */}
-      <rect x={0} y={baseY} width={width} height={height} className="rom-ruler-outline" />
+      <rect x={0} y={baseY} width={width} height={height} fill="none" stroke="#000000" strokeWidth={0.75} />
 
       {/* 目盛り数値（区間の先頭行のみ表示） */}
       {showScale &&
         ticks
           .filter((d) => d % CAP_LABEL_STEP === 0)
           .map((d) => (
-            <text key={`n${d}`} x={degToX(d)} y={9} className="rom-ruler-num" textAnchor="middle">
+            <text key={`n${d}`} x={degToX(d)} y={9} fontSize={6} fill="#333333" textAnchor="middle">
               {Math.abs(d)}
             </text>
           ))}
@@ -111,19 +113,22 @@ export function RomAxisRuler({
             x2={x}
             y1={baseY}
             y2={major ? baseY + height : baseY + height - 4}
-            className={major ? "rom-tick-major" : "rom-tick-minor"}
+            stroke={major ? "#000000" : "#666666"}
+            strokeWidth={major ? 1 : 0.5}
           />
         );
       })}
 
       {/* 測定値の矢印 */}
       {showArrow && (
-        <g className="rom-arrow">
+        <g>
           <line
             x1={degToX(startDeg)}
             y1={midY}
             x2={degToX(endDeg)}
             y2={midY}
+            stroke="#000000"
+            strokeWidth={1.6}
             markerStart={hasNeg ? "url(#romArrowHead)" : undefined}
             markerEnd={hasPos ? "url(#romArrowHead)" : undefined}
           />
