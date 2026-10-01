@@ -4,6 +4,7 @@ import { SummaryTab } from "./SummaryTab";
 import { StatusTab } from "./StatusTab";
 import { RomMmtTab } from "./RomMmtTab";
 import { PrintLayout } from "./PrintLayout";
+import { exportPatientPdf } from "../utils/exportPdf";
 
 type Props = {
   patient: Patient;
@@ -22,6 +23,21 @@ const TABS: { key: TabKey; label: string }[] = [
 
 export function PatientEditor({ patient, onChange, onBack }: Props) {
   const [tab, setTab] = useState<TabKey>("summary");
+  const [exporting, setExporting] = useState(false);
+  const [exportError, setExportError] = useState<string | null>(null);
+
+  const handleExportPdf = async () => {
+    setExporting(true);
+    setExportError(null);
+    try {
+      const name = patient.summary.name || "患者";
+      await exportPatientPdf(`${name}_身体障害者診断書.pdf`);
+    } catch (e) {
+      setExportError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setExporting(false);
+    }
+  };
 
   return (
     <div className="patient-editor">
@@ -30,10 +46,21 @@ export function PatientEditor({ patient, onChange, onBack }: Props) {
           ← 患者一覧へ戻る
         </button>
         <span className="editor-patient-name">{patient.summary.name || "（氏名未入力）"}</span>
-        <button className="primary-btn" onClick={() => window.print()}>
-          印刷 / PDF出力
+        <button className="primary-btn" onClick={handleExportPdf} disabled={exporting}>
+          {exporting ? "PDF作成中..." : "PDFを保存（A3横2枚）"}
         </button>
       </div>
+      <p className="no-print export-hint">
+        印刷する場合は、保存したPDFを開いてから印刷してください（ブラウザから直接印刷すると、A3横の用紙設定が正しく反映されないことがあります）。
+      </p>
+      {exportError && (
+        <div className="save-error-banner no-print" role="alert">
+          PDF作成に失敗しました：{exportError}
+          <button type="button" onClick={() => setExportError(null)}>
+            閉じる
+          </button>
+        </div>
+      )}
 
       <nav className="tab-nav no-print">
         {TABS.map((t) => (
@@ -70,7 +97,7 @@ export function PatientEditor({ patient, onChange, onBack }: Props) {
         )}
       </div>
 
-      {/* 印刷時は常にフル出力を使う */}
+      {/* PDF書き出し・印刷時は常にフル出力を使う */}
       <div className="print-only">
         <PrintLayout patient={patient} />
       </div>
