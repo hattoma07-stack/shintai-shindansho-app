@@ -1,6 +1,9 @@
 import type { BodyMark } from "../types";
-import bodyDiagram from "../assets/body-diagram.png";
-import handDiagram from "../assets/hand-diagram.png";
+// PDF書き出し（html-to-image）は<img>を画像データとして埋め込むためにfetchを行うが、
+// iPad（Safari）ではこの取得に失敗し図が欠落することがあるため、
+// ?inline を付けてビルド時にbase64として直接JSへ埋め込み、fetch自体を不要にする。
+import bodyDiagram from "../assets/body-diagram.png?inline";
+import handDiagram from "../assets/hand-diagram.png?inline";
 import { BodyDiagramOverlay } from "./BodyDiagramOverlay";
 import { HandDiagramOverlay } from "./HandDiagramOverlay";
 
