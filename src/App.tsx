@@ -38,6 +38,9 @@ function App() {
   };
 
   const handleDelete = async (id: string) => {
+    // 削除後に保留中の自動保存が走って復活してしまわないよう、先にタイマーを止める
+    clearTimeout(saveTimers.current[id]);
+    delete saveTimers.current[id];
     setPatients((prev) => prev.filter((p) => p.id !== id));
     if (selectedId === id) setSelectedId(null);
     try {
@@ -80,7 +83,7 @@ function App() {
   return (
     <div className="app-root">
       {saveError && (
-        <div className="save-error-banner" role="alert">
+        <div className="save-error-banner no-print" role="alert">
           保存に失敗しました：{saveError}
           <button type="button" onClick={() => setSaveError(null)}>
             閉じる

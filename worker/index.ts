@@ -97,10 +97,19 @@ export default {
           const body = (await request.json()) as { summary: unknown; status: unknown; romMmt: unknown };
           const now = Date.now();
           const updatedBy = getUserEmail(request);
+          // 新規作成直後の保存がまだ届いていない場合に備え、UPDATEではなく
+          // upsert（なければ作成）にしてレース条件による失敗を防ぐ。
           await env.DB.prepare(
-            `UPDATE patients SET updated_at = ?, updated_by = ?, summary = ?, status = ?, rom_mmt = ? WHERE id = ?`
+            `INSERT INTO patients (id, created_at, updated_at, updated_by, summary, status, rom_mmt)
+             VALUES (?, ?, ?, ?, ?, ?, ?)
+             ON CONFLICT(id) DO UPDATE SET
+               updated_at = excluded.updated_at,
+               updated_by = excluded.updated_by,
+               summary = excluded.summary,
+               status = excluded.status,
+               rom_mmt = excluded.rom_mmt`
           )
-            .bind(now, updatedBy, JSON.stringify(body.summary), JSON.stringify(body.status), JSON.stringify(body.romMmt), id)
+            .bind(id, now, now, updatedBy, JSON.stringify(body.summary), JSON.stringify(body.status), JSON.stringify(body.romMmt))
             .run();
           const row = await env.DB.prepare("SELECT * FROM patients WHERE id = ?").bind(id).first<PatientRow>();
           if (!row) return json({ error: "not found" }, 404);
