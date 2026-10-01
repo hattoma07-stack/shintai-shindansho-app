@@ -34,3 +34,5 @@ scripts/demoSingle.json
 *.sln
 *.sw?
 .vercel
+.wrangler
+.dev.vars

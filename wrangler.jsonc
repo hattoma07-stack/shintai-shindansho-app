@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "shintai-shindansho-app",
+  "main": "worker/index.ts",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "shintai-shindansho-db",
+      "database_id": "694ad3bd-0843-43a2-ba40-113698709a41"
+    }
+  ]
+}

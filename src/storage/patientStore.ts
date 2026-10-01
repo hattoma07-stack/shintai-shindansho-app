@@ -1,40 +1,36 @@
 import type { Patient } from "../types";
 
-const STORAGE_KEY = "shintai-shindansho:patients";
+const API_BASE = "/api/patients";
 
-export function loadPatients(): Patient[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    return parsed as Patient[];
-  } catch {
-    return [];
-  }
+export async function fetchPatients(): Promise<Patient[]> {
+  const res = await fetch(API_BASE);
+  if (!res.ok) throw new Error(`患者データの取得に失敗しました (${res.status})`);
+  return (await res.json()) as Patient[];
 }
 
-export function savePatients(patients: Patient[]): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(patients));
+export async function createPatient(patient: Patient): Promise<Patient> {
+  const res = await fetch(API_BASE, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(patient),
+  });
+  if (!res.ok) throw new Error(`患者の作成に失敗しました (${res.status})`);
+  return (await res.json()) as Patient;
 }
 
-export function upsertPatient(patient: Patient): Patient[] {
-  const patients = loadPatients();
-  const idx = patients.findIndex((p) => p.id === patient.id);
-  const updated = { ...patient, updatedAt: Date.now() };
-  if (idx >= 0) {
-    patients[idx] = updated;
-  } else {
-    patients.push(updated);
-  }
-  savePatients(patients);
-  return patients;
+export async function updatePatient(patient: Patient): Promise<Patient> {
+  const res = await fetch(`${API_BASE}/${patient.id}`, {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(patient),
+  });
+  if (!res.ok) throw new Error(`患者データの保存に失敗しました (${res.status})`);
+  return (await res.json()) as Patient;
 }
 
-export function deletePatient(id: string): Patient[] {
-  const patients = loadPatients().filter((p) => p.id !== id);
-  savePatients(patients);
-  return patients;
+export async function deletePatient(id: string): Promise<void> {
+  const res = await fetch(`${API_BASE}/${id}`, { method: "DELETE" });
+  if (!res.ok) throw new Error(`患者の削除に失敗しました (${res.status})`);
 }
 
 export function newPatientId(): string {
