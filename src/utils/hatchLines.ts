@@ -4,12 +4,12 @@
 // 画像化ライブラリ間での対応差が大きいため、参照を使わずに直接<line>座標を計算して
 // 描画する方式に変更し、どの環境でも同じ見た目になるようにする。
 
-export type LineSeg = { x1: number; y1: number; x2: number; y2: number };
+export type LineSeg = { x1: number; y1: number; x2: number; y2: number; strokeWidth: number };
 
 type Rect = { x: number; y: number; width: number; height: number };
 
 // 45度の斜線（感覚障害）。spacingは斜線同士の間隔(px)。
-export function diagonalHatchLines({ x, y, width, height }: Rect, spacing: number): LineSeg[] {
+export function diagonalHatchLines({ x, y, width, height }: Rect, spacing: number, strokeWidth: number): LineSeg[] {
   const lines: LineSeg[] = [];
   const cMin = y - (x + width);
   const cMax = y + height - x;
@@ -35,17 +35,17 @@ export function diagonalHatchLines({ x, y, width, height }: Rect, spacing: numbe
       x2 = y2 - c;
     }
     if (x1 >= x - 0.01 && x1 <= x + width + 0.01 && x2 >= x - 0.01 && x2 <= x + width + 0.01 && (x1 !== x2 || y1 !== y2)) {
-      lines.push({ x1, y1, x2, y2 });
+      lines.push({ x1, y1, x2, y2, strokeWidth });
     }
   }
   return lines;
 }
 
 // 横線（運動障害）。spacingは線同士の間隔(px)。
-export function horizontalLines({ x, y, width, height }: Rect, spacing: number): LineSeg[] {
+export function horizontalLines({ x, y, width, height }: Rect, spacing: number, strokeWidth: number): LineSeg[] {
   const lines: LineSeg[] = [];
   for (let ly = y + spacing / 2; ly < y + height; ly += spacing) {
-    lines.push({ x1: x, y1: ly, x2: x + width, y2: ly });
+    lines.push({ x1: x, y1: ly, x2: x + width, y2: ly, strokeWidth });
   }
   return lines;
 }

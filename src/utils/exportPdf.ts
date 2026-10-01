@@ -47,6 +47,19 @@ export async function exportPatientPdf(fileName: string): Promise<void> {
       container.innerHTML = "";
       const clone = pages[i].cloneNode(true) as HTMLElement;
       container.appendChild(clone);
+
+      // cloneNode は<canvas>の描画内容（参考図示の人体図・手掌図）をコピーしないため、
+      // 元の<canvas>から複製先へピクセルを手動で転写する。
+      const sourceCanvases = pages[i].querySelectorAll("canvas");
+      const clonedCanvases = clone.querySelectorAll("canvas");
+      sourceCanvases.forEach((srcCanvas, idx) => {
+        const dstCanvas = clonedCanvases[idx];
+        if (!dstCanvas) return;
+        dstCanvas.width = srcCanvas.width;
+        dstCanvas.height = srcCanvas.height;
+        dstCanvas.getContext("2d")?.drawImage(srcCanvas, 0, 0);
+      });
+
       // レイアウト・画像の読み込みが落ち着くのを少し待つ
       await new Promise((resolve) => setTimeout(resolve, 60));
 
