@@ -10,6 +10,8 @@ export type RomAxisDef = {
   pos: RomAxisSide;
   // true のとき、右側（右の測定）のみ左右の文字ラベルの位置を入れ替える
   swapRightLabels?: boolean;
+  // true のとき、左側（左の測定）のみ左右の文字ラベルの位置を入れ替える
+  swapLeftLabels?: boolean;
 };
 
 export const ROM_MMT_AXES: RomAxisDef[] = [
@@ -27,7 +29,7 @@ export const ROM_MMT_AXES: RomAxisDef[] = [
 
   { section: "前腕", neg: { id: "forearm-pro" }, pos: { id: "forearm-sup" }, swapRightLabels: true },
 
-  { section: "手", neg: { id: "wrist-flex" }, pos: { id: "wrist-ext" } },
+  { section: "手", neg: { id: "wrist-flex" }, pos: { id: "wrist-ext" }, swapLeftLabels: true },
 
   { section: "中手指節(MP)", neg: { id: "mp-t-ext" }, pos: { id: "mp-t-flex" }, swapRightLabels: true },
   { section: "中手指節(MP)", neg: { id: "mp-i-ext" }, pos: { id: "mp-i-flex" }, swapRightLabels: true },
@@ -47,6 +49,6 @@ export const ROM_MMT_AXES: RomAxisDef[] = [
 
   { section: "膝", neg: { id: "knee-ext" }, pos: { id: "knee-flex" } },
 
-  { section: "足", neg: { id: "ankle-plantar" }, pos: { id: "ankle-dorsi" } },
+  { section: "足", neg: { id: "ankle-plantar" }, pos: { id: "ankle-dorsi" }, swapLeftLabels: true },
 
 ];
