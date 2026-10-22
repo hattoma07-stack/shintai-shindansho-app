@@ -136,7 +136,7 @@ export function RomMmtPrintSection({ patient }: { patient: Patient }) {
                     romValues={patient.romMmt}
                     side="leftRom"
                     swapLabels={!!axis.swapLeftLabels}
-                    flip={!axis.swapLeftLabels}
+                    flip={!!axis.swapLeftLabels}
                     showScale={idx === 0}
                   />
                 </td>
