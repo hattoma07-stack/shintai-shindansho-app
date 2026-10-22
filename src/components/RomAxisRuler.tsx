@@ -26,7 +26,7 @@ export function RomAxisRuler({
   flip = false,
   showScale = false,
   width = 210,
-  height = 16,
+  height = 28,
 }: Props) {
   const negScale = NEG_SCALE;
   const posScale = POS_SCALE;
@@ -53,9 +53,9 @@ export function RomAxisRuler({
 
   // 矢印が短い（値が近い）ときは矢じりも小さくして、線が矢じりに隠れないようにする
   const arrowLen = Math.abs(degToX(endDeg) - degToX(startDeg));
-  const headSize = Math.max(HEAD_MIN, Math.min(HEAD_MAX, arrowLen * 0.4));
+  const headSize = Math.max(HEAD_MIN, Math.min(HEAD_MAX, arrowLen * 0.5));
 
-  const topY = showScale ? 12 : 0;
+  const topY = showScale ? 16 : 0;
   const baseY = topY + 2;
   const midY = baseY + height / 2;
 
@@ -94,14 +94,14 @@ export function RomAxisRuler({
         fill="#ffffff"
       />
       {/* 外枠 */}
-      <rect x={0} y={baseY} width={width} height={height} fill="none" stroke="#000000" strokeWidth={0.75} />
+      <rect x={0} y={baseY} width={width} height={height} fill="none" stroke="#000000" strokeWidth={1.2} />
 
       {/* 目盛り数値（区間の先頭行のみ表示） */}
       {showScale &&
         ticks
           .filter((d) => d % CAP_LABEL_STEP === 0)
           .map((d) => (
-            <text key={`n${d}`} x={degToX(d)} y={9} fontSize={6} fill="#333333" textAnchor="middle">
+            <text key={`n${d}`} x={degToX(d)} y={12} fontSize={10} fill="#333333" textAnchor="middle">
               {Math.abs(d)}
             </text>
           ))}
@@ -116,9 +116,9 @@ export function RomAxisRuler({
             x1={x}
             x2={x}
             y1={baseY}
-            y2={major ? baseY + height : baseY + height - 4}
+            y2={major ? baseY + height : baseY + height - 6}
             stroke={major ? "#000000" : "#666666"}
-            strokeWidth={major ? 1 : 0.5}
+            strokeWidth={major ? 1.4 : 0.8}
           />
         );
       })}
@@ -132,20 +132,20 @@ export function RomAxisRuler({
             x2={degToX(endDeg)}
             y2={midY}
             stroke="#000000"
-            strokeWidth={2.4}
+            strokeWidth={3.5}
           />
           {hasPos && <ArrowHead tipX={degToX(endDeg)} y={midY} dir={flip ? -1 : 1} size={headSize} />}
           {hasNeg && <ArrowHead tipX={degToX(startDeg)} y={midY} dir={flip ? 1 : -1} size={headSize} />}
         </g>
       )}
       {/* 0°と入力された場合は0の位置に印を付ける */}
-      {onlyZero && <circle cx={degToX(0)} cy={midY} r={3.5} fill="#000000" />}
+      {onlyZero && <circle cx={degToX(0)} cy={midY} r={5.5} fill="#000000" />}
     </svg>
   );
 }
 
-const HEAD_MAX = 10;
-const HEAD_MIN = 3.5;
+const HEAD_MAX = 16;
+const HEAD_MIN = 9;
 
 function ArrowHead({ tipX, y, dir, size }: { tipX: number; y: number; dir: 1 | -1; size: number }) {
   const HEAD = size;
