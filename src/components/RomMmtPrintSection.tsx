@@ -20,6 +20,13 @@ function num(v: string | undefined): number | null {
   return Number.isNaN(n) ? null : n;
 }
 
+// MP・PIPの指名（母・示・中・環・小）は、表の左右両端（外側）では省き、
+// 中央寄り（内側）の側だけに表示する。
+function movementLabel(row: RomMmtRowDef, hideFinger: boolean): string {
+  const isFingerRow = row.id.startsWith("mp-") || row.id.startsWith("pip-");
+  return hideFinger && isFingerRow ? row.movement.replace(/^\S+\s+/, "") : row.movement;
+}
+
 function SideCell({
   axisNegId,
   axisPosId,
@@ -52,7 +59,7 @@ function SideCell({
       <span className="rom-axis-label rom-axis-label-left">
         {negRow ? (
           <>
-            ({negMmt || " "}){negRow.movement}
+            ({negMmt || " "}){movementLabel(negRow, side === "rightRom")}
           </>
         ) : (
           ""
@@ -69,7 +76,7 @@ function SideCell({
       <span className="rom-axis-label rom-axis-label-right">
         {posRow ? (
           <>
-            {posRow.movement}({posMmt || " "})
+            {movementLabel(posRow, side === "leftRom")}({posMmt || " "})
           </>
         ) : (
           ""
