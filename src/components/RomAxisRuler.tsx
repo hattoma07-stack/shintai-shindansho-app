@@ -51,6 +51,10 @@ export function RomAxisRuler({
   const showArrow = hasNeg || hasPos;
   const onlyZero = !showArrow && (negVal === 0 || posVal === 0);
 
+  // 矢印が短い（値が近い）ときは矢じりも小さくして、線が矢じりに隠れないようにする
+  const arrowLen = Math.abs(degToX(endDeg) - degToX(startDeg));
+  const headSize = Math.max(HEAD_MIN, Math.min(HEAD_MAX, arrowLen * 0.4));
+
   const topY = showScale ? 12 : 0;
   const baseY = topY + 2;
   const midY = baseY + height / 2;
@@ -130,8 +134,8 @@ export function RomAxisRuler({
             stroke="#000000"
             strokeWidth={2.4}
           />
-          {hasPos && <ArrowHead tipX={degToX(endDeg)} y={midY} dir={flip ? -1 : 1} />}
-          {hasNeg && <ArrowHead tipX={degToX(startDeg)} y={midY} dir={flip ? 1 : -1} />}
+          {hasPos && <ArrowHead tipX={degToX(endDeg)} y={midY} dir={flip ? -1 : 1} size={headSize} />}
+          {hasNeg && <ArrowHead tipX={degToX(startDeg)} y={midY} dir={flip ? 1 : -1} size={headSize} />}
         </g>
       )}
       {/* 0°と入力された場合は0の位置に印を付ける */}
@@ -140,9 +144,11 @@ export function RomAxisRuler({
   );
 }
 
-const HEAD = 10;
+const HEAD_MAX = 10;
+const HEAD_MIN = 3.5;
 
-function ArrowHead({ tipX, y, dir }: { tipX: number; y: number; dir: 1 | -1 }) {
+function ArrowHead({ tipX, y, dir, size }: { tipX: number; y: number; dir: 1 | -1; size: number }) {
+  const HEAD = size;
   const baseX = tipX - dir * HEAD;
   return <polygon points={`${tipX},${y} ${baseX},${y - HEAD * 0.45} ${baseX},${y + HEAD * 0.45}`} fill="#000000" />;
 }
