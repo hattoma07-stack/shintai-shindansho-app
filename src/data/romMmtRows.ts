@@ -22,11 +22,7 @@ export const ROM_MMT_ROWS: RomMmtRowDef[] = [
 
   { id: "wrist-ext", section: "手関節", movement: "背屈（伸展）", refRom: "70°" },
   { id: "wrist-flex", section: "手関節", movement: "掌屈（屈曲）", refRom: "90°" },
-  { id: "wrist-radial", section: "手関節", movement: "橈屈", refRom: "25°" },
-  { id: "wrist-ulnar", section: "手関節", movement: "尺屈", refRom: "55°" },
 
-  { id: "thumb-radialabd", section: "母指", movement: "橈側外転", refRom: "60°" },
-  { id: "thumb-palmarabd", section: "母指", movement: "掌側外転", refRom: "90°" },
   { id: "thumb-mcp", section: "母指", movement: "屈曲（MCP）", refRom: "60°" },
   { id: "thumb-ip", section: "母指", movement: "屈曲（IP）", refRom: "80°" },
 
@@ -47,23 +43,15 @@ export const ROM_MMT_ROWS: RomMmtRowDef[] = [
 
   { id: "ankle-dorsi", section: "足関節", movement: "背屈（屈曲）", refRom: "20°" },
   { id: "ankle-plantar", section: "足関節", movement: "底屈（伸展）", refRom: "45°" },
-  { id: "ankle-eversion", section: "足関節", movement: "外反（外転）", refRom: "20°" },
-  { id: "ankle-inversion", section: "足関節", movement: "内反（内転）", refRom: "30°" },
 
-  { id: "greattoe-mcpflex", section: "母趾", movement: "屈曲（MTP）", refRom: "35°" },
-  { id: "greattoe-mcpext", section: "母趾", movement: "伸展（MTP）", refRom: "60°" },
 
   { id: "cspine-flex", section: "頸椎", movement: "前屈", refRom: "60°" },
   { id: "cspine-ext", section: "頸椎", movement: "後屈", refRom: "50°" },
   { id: "cspine-leftbend", section: "頸椎", movement: "左側屈", refRom: "50°" },
   { id: "cspine-rightbend", section: "頸椎", movement: "右側屈", refRom: "50°" },
-  { id: "cspine-leftrot", section: "頸椎", movement: "左回旋", refRom: "60°" },
-  { id: "cspine-rightrot", section: "頸椎", movement: "右回旋", refRom: "60°" },
 
   { id: "tlspine-flex", section: "胸腰椎", movement: "前屈", refRom: "45°" },
   { id: "tlspine-ext", section: "胸腰椎", movement: "後屈", refRom: "30°" },
   { id: "tlspine-leftbend", section: "胸腰椎", movement: "左側屈", refRom: "50°" },
   { id: "tlspine-rightbend", section: "胸腰椎", movement: "右側屈", refRom: "50°" },
-  { id: "tlspine-leftrot", section: "胸腰椎", movement: "左回旋", refRom: "40°" },
-  { id: "tlspine-rightrot", section: "胸腰椎", movement: "右回旋", refRom: "40°" },
 ];
