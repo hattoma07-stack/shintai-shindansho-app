@@ -7,8 +7,8 @@ export type RomMmtRowDef = {
 
 // スプレッドシート「ROM・MMT測定表」（シンプル表形式）の内容をそのまま採用
 export const ROM_MMT_ROWS: RomMmtRowDef[] = [
-  { id: "shoulder-flex", section: "肩関節", movement: "前屈（屈曲）", refRom: "180°" },
-  { id: "shoulder-ext", section: "肩関節", movement: "後屈（伸展）", refRom: "60°" },
+  { id: "shoulder-flex", section: "肩関節", movement: "屈曲", refRom: "180°" },
+  { id: "shoulder-ext", section: "肩関節", movement: "伸展", refRom: "60°" },
   { id: "shoulder-abd", section: "肩関節", movement: "外転", refRom: "180°" },
   { id: "shoulder-add", section: "肩関節", movement: "内転", refRom: "0°" },
   { id: "shoulder-er", section: "肩関節", movement: "外旋", refRom: "60°" },
@@ -20,8 +20,8 @@ export const ROM_MMT_ROWS: RomMmtRowDef[] = [
   { id: "forearm-sup", section: "前腕", movement: "回外", refRom: "90°" },
   { id: "forearm-pro", section: "前腕", movement: "回内", refRom: "90°" },
 
-  { id: "wrist-ext", section: "手関節", movement: "背屈（伸展）", refRom: "70°" },
-  { id: "wrist-flex", section: "手関節", movement: "掌屈（屈曲）", refRom: "90°" },
+  { id: "wrist-ext", section: "手関節", movement: "背屈", refRom: "70°" },
+  { id: "wrist-flex", section: "手関節", movement: "掌屈", refRom: "90°" },
 
   { id: "mp-t-flex", section: "中手指節(MP)", movement: "母 屈曲", refRom: "60°" },
   { id: "mp-t-ext", section: "中手指節(MP)", movement: "母 伸展", refRom: "10°" },
@@ -55,8 +55,8 @@ export const ROM_MMT_ROWS: RomMmtRowDef[] = [
   { id: "knee-flex", section: "膝関節", movement: "屈曲", refRom: "130°" },
   { id: "knee-ext", section: "膝関節", movement: "伸展", refRom: "0°" },
 
-  { id: "ankle-dorsi", section: "足関節", movement: "背屈（屈曲）", refRom: "20°" },
-  { id: "ankle-plantar", section: "足関節", movement: "底屈（伸展）", refRom: "45°" },
+  { id: "ankle-dorsi", section: "足関節", movement: "背屈", refRom: "20°" },
+  { id: "ankle-plantar", section: "足関節", movement: "底屈", refRom: "45°" },
 
   { id: "cspine-flex", section: "頸椎", movement: "前屈", refRom: "60°" },
   { id: "cspine-ext", section: "頸椎", movement: "後屈", refRom: "50°" },

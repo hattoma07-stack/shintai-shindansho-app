@@ -18,8 +18,6 @@ export const ROM_MMT_AXES: RomAxisDef[] = [
   { section: "体幹", neg: { id: "tlspine-leftbend" }, pos: { id: "tlspine-rightbend" } },
 
   { section: "肩", neg: { id: "shoulder-ext" }, pos: { id: "shoulder-flex" } },
-  { section: "肩", neg: { id: "shoulder-add" }, pos: { id: "shoulder-abd" } },
-  { section: "肩", neg: { id: "shoulder-ir" }, pos: { id: "shoulder-er" } },
 
   { section: "肘", neg: { id: "elbow-ext" }, pos: { id: "elbow-flex" } },
 
