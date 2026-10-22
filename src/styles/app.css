@@ -1007,7 +1007,7 @@ button {
 /* ---- ROM・MMT 図式測定表 (print) ---- */
 .rom-graphic-wrap {
   border: 1px solid #000;
-  padding: 6px 8px 10px;
+  padding: 6px 4px 10px;
 }
 
 .rom-graphic-table {
@@ -1017,7 +1017,7 @@ button {
 }
 
 .rom-graphic-table td {
-  padding: 2px 4px;
+  padding: 2px 2px;
   vertical-align: middle;
 }
 
@@ -1074,8 +1074,9 @@ button {
 
 .rom-axis-label {
   white-space: nowrap;
-  font-size: 0.72rem;
-  min-width: 44px;
+  font-size: 0.68rem;
+  flex: 0 0 5.2em;
+  width: 5.2em;
 }
 
 .rom-axis-label-left {
