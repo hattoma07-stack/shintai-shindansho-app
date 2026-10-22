@@ -20,15 +20,28 @@ export const ROM_MMT_ROWS: RomMmtRowDef[] = [
   { id: "forearm-sup", section: "前腕", movement: "回外", refRom: "90°" },
   { id: "forearm-pro", section: "前腕", movement: "回内", refRom: "90°" },
 
-  { id: "wrist-ext", section: "手関節", movement: "背屈（伸展）", refRom: "70°" },
-  { id: "wrist-flex", section: "手関節", movement: "掌屈（屈曲）", refRom: "90°" },
+  { id: "mp-t-flex", section: "中手指節(MP)", movement: "母 屈曲", refRom: "60°" },
+  { id: "mp-t-ext", section: "中手指節(MP)", movement: "母 伸展", refRom: "10°" },
+  { id: "mp-i-flex", section: "中手指節(MP)", movement: "示 屈曲", refRom: "90°" },
+  { id: "mp-i-ext", section: "中手指節(MP)", movement: "示 伸展", refRom: "45°" },
+  { id: "mp-m-flex", section: "中手指節(MP)", movement: "中 屈曲", refRom: "90°" },
+  { id: "mp-m-ext", section: "中手指節(MP)", movement: "中 伸展", refRom: "45°" },
+  { id: "mp-r-flex", section: "中手指節(MP)", movement: "環 屈曲", refRom: "90°" },
+  { id: "mp-r-ext", section: "中手指節(MP)", movement: "環 伸展", refRom: "45°" },
+  { id: "mp-l-flex", section: "中手指節(MP)", movement: "小 屈曲", refRom: "90°" },
+  { id: "mp-l-ext", section: "中手指節(MP)", movement: "小 伸展", refRom: "45°" },
 
-  { id: "thumb-mcp", section: "母指", movement: "屈曲（MCP）", refRom: "60°" },
-  { id: "thumb-ip", section: "母指", movement: "屈曲（IP）", refRom: "80°" },
+  { id: "pip-t-flex", section: "近位指節(PIP)", movement: "母 屈曲", refRom: "80°" },
+  { id: "pip-t-ext", section: "近位指節(PIP)", movement: "母 伸展", refRom: "0°" },
+  { id: "pip-i-flex", section: "近位指節(PIP)", movement: "示 屈曲", refRom: "100°" },
+  { id: "pip-i-ext", section: "近位指節(PIP)", movement: "示 伸展", refRom: "0°" },
+  { id: "pip-m-flex", section: "近位指節(PIP)", movement: "中 屈曲", refRom: "100°" },
+  { id: "pip-m-ext", section: "近位指節(PIP)", movement: "中 伸展", refRom: "0°" },
+  { id: "pip-r-flex", section: "近位指節(PIP)", movement: "環 屈曲", refRom: "100°" },
+  { id: "pip-r-ext", section: "近位指節(PIP)", movement: "環 伸展", refRom: "0°" },
+  { id: "pip-l-flex", section: "近位指節(PIP)", movement: "小 屈曲", refRom: "100°" },
+  { id: "pip-l-ext", section: "近位指節(PIP)", movement: "小 伸展", refRom: "0°" },
 
-  { id: "finger-mcpflex", section: "示指〜小指", movement: "屈曲（MCP）", refRom: "90°" },
-  { id: "finger-mcpext", section: "示指〜小指", movement: "伸展（MCP）", refRom: "45°" },
-  { id: "finger-pip", section: "示指〜小指", movement: "屈曲（PIP）", refRom: "100°" },
   { id: "finger-dip", section: "示指〜小指", movement: "屈曲（DIP）", refRom: "80°" },
 
   { id: "hip-flex", section: "股関節", movement: "屈曲", refRom: "125°" },
@@ -43,7 +56,6 @@ export const ROM_MMT_ROWS: RomMmtRowDef[] = [
 
   { id: "ankle-dorsi", section: "足関節", movement: "背屈（屈曲）", refRom: "20°" },
   { id: "ankle-plantar", section: "足関節", movement: "底屈（伸展）", refRom: "45°" },
-
 
   { id: "cspine-flex", section: "頸椎", movement: "前屈", refRom: "60°" },
   { id: "cspine-ext", section: "頸椎", movement: "後屈", refRom: "50°" },
