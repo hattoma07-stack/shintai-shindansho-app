@@ -36,6 +36,7 @@ function SideCell({
   side,
   flip,
   showScale,
+  swapLabels,
 }: {
   axisNegId?: string;
   axisPosId?: string;
@@ -45,6 +46,7 @@ function SideCell({
   side: "rightRom" | "leftRom";
   flip: boolean;
   showScale: boolean;
+  swapLabels: boolean;
 }) {
   const mmtSide = side === "rightRom" ? "rightMmt" : "leftMmt";
   const negRow = axisNegId ? ROW_BY_ID[axisNegId] : undefined;
@@ -54,16 +56,31 @@ function SideCell({
   const negMmt = axisNegId ? mmtToSymbol(romValues[axisNegId]?.[mmtSide]) : "";
   const posMmt = axisPosId ? mmtToSymbol(romValues[axisPosId]?.[mmtSide]) : "";
 
+  const labelOf = (row: RomMmtRowDef | undefined, mmt: string, pos: "left" | "right", hideFinger: boolean) => {
+    if (!row) return "";
+    const text = movementLabel(row, hideFinger);
+    return pos === "left" ? (
+      <>
+        ({mmt || " "}){text}
+      </>
+    ) : (
+      <>
+        {text}({mmt || " "})
+      </>
+    );
+  };
+
+  // swapLabels のときは左右の文字ラベル（運動方向とMMT記号）の位置を入れ替える。
+  // 指名の省略は位置（左右両端側）で決まるので、入れ替え後も位置基準のまま。
+  const leftRow = swapLabels ? posRow : negRow;
+  const leftMmt = swapLabels ? posMmt : negMmt;
+  const rightRow = swapLabels ? negRow : posRow;
+  const rightMmt = swapLabels ? negMmt : posMmt;
+
   return (
     <div className="rom-axis-cell">
       <span className="rom-axis-label rom-axis-label-left">
-        {negRow ? (
-          <>
-            ({negMmt || " "}){movementLabel(negRow, side === "rightRom")}
-          </>
-        ) : (
-          ""
-        )}
+        {labelOf(leftRow, leftMmt, "left", side === "rightRom")}
       </span>
       <RomAxisRuler
         negRef={negRef}
@@ -74,13 +91,7 @@ function SideCell({
         showScale={showScale}
       />
       <span className="rom-axis-label rom-axis-label-right">
-        {posRow ? (
-          <>
-            {movementLabel(posRow, side === "leftRom")}({posMmt || " "})
-          </>
-        ) : (
-          ""
-        )}
+        {labelOf(rightRow, rightMmt, "right", side === "leftRom")}
       </span>
     </div>
   );
@@ -109,6 +120,7 @@ export function RomMmtPrintSection({ patient }: { patient: Patient }) {
                     posRef={posRef}
                     romValues={patient.romMmt}
                     side="rightRom"
+                    swapLabels={!!axis.swapRightLabels}
                     flip={false}
                     showScale={idx === 0}
                   />
@@ -123,6 +135,7 @@ export function RomMmtPrintSection({ patient }: { patient: Patient }) {
                     posRef={posRef}
                     romValues={patient.romMmt}
                     side="leftRom"
+                    swapLabels={false}
                     flip={true}
                     showScale={idx === 0}
                   />

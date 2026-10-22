@@ -8,38 +8,42 @@ export type RomAxisDef = {
   section: string;
   neg: RomAxisSide;
   pos: RomAxisSide;
+  // true のとき、右側（右の測定）のみ左右の文字ラベルの位置を入れ替える
+  swapRightLabels?: boolean;
 };
 
 export const ROM_MMT_AXES: RomAxisDef[] = [
-  { section: "頸", neg: { id: "cspine-ext" }, pos: { id: "cspine-flex" } },
+  { section: "頸", neg: { id: "cspine-ext" }, pos: { id: "cspine-flex" }, swapRightLabels: true },
   { section: "頸", neg: { id: "cspine-leftbend" }, pos: { id: "cspine-rightbend" } },
 
-  { section: "体幹", neg: { id: "tlspine-ext" }, pos: { id: "tlspine-flex" } },
+  { section: "体幹", neg: { id: "tlspine-ext" }, pos: { id: "tlspine-flex" }, swapRightLabels: true },
   { section: "体幹", neg: { id: "tlspine-leftbend" }, pos: { id: "tlspine-rightbend" } },
 
-  { section: "肩", neg: { id: "shoulder-ext" }, pos: { id: "shoulder-flex" } },
+  { section: "肩", neg: { id: "shoulder-ext" }, pos: { id: "shoulder-flex" }, swapRightLabels: true },
+  { section: "肩", neg: { id: "shoulder-add" }, pos: { id: "shoulder-abd" } },
+  { section: "肩", neg: { id: "shoulder-ir" }, pos: { id: "shoulder-er" } },
 
   { section: "肘", neg: { id: "elbow-ext" }, pos: { id: "elbow-flex" } },
 
-  { section: "前腕", neg: { id: "forearm-pro" }, pos: { id: "forearm-sup" } },
+  { section: "前腕", neg: { id: "forearm-pro" }, pos: { id: "forearm-sup" }, swapRightLabels: true },
 
   { section: "手", neg: { id: "wrist-flex" }, pos: { id: "wrist-ext" } },
 
-  { section: "中手指節(MP)", neg: { id: "mp-t-ext" }, pos: { id: "mp-t-flex" } },
-  { section: "中手指節(MP)", neg: { id: "mp-i-ext" }, pos: { id: "mp-i-flex" } },
-  { section: "中手指節(MP)", neg: { id: "mp-m-ext" }, pos: { id: "mp-m-flex" } },
-  { section: "中手指節(MP)", neg: { id: "mp-r-ext" }, pos: { id: "mp-r-flex" } },
-  { section: "中手指節(MP)", neg: { id: "mp-l-ext" }, pos: { id: "mp-l-flex" } },
-  { section: "近位指節(PIP)", neg: { id: "pip-t-ext" }, pos: { id: "pip-t-flex" } },
-  { section: "近位指節(PIP)", neg: { id: "pip-i-ext" }, pos: { id: "pip-i-flex" } },
-  { section: "近位指節(PIP)", neg: { id: "pip-m-ext" }, pos: { id: "pip-m-flex" } },
-  { section: "近位指節(PIP)", neg: { id: "pip-r-ext" }, pos: { id: "pip-r-flex" } },
-  { section: "近位指節(PIP)", neg: { id: "pip-l-ext" }, pos: { id: "pip-l-flex" } },
+  { section: "中手指節(MP)", neg: { id: "mp-t-ext" }, pos: { id: "mp-t-flex" }, swapRightLabels: true },
+  { section: "中手指節(MP)", neg: { id: "mp-i-ext" }, pos: { id: "mp-i-flex" }, swapRightLabels: true },
+  { section: "中手指節(MP)", neg: { id: "mp-m-ext" }, pos: { id: "mp-m-flex" }, swapRightLabels: true },
+  { section: "中手指節(MP)", neg: { id: "mp-r-ext" }, pos: { id: "mp-r-flex" }, swapRightLabels: true },
+  { section: "中手指節(MP)", neg: { id: "mp-l-ext" }, pos: { id: "mp-l-flex" }, swapRightLabels: true },
+  { section: "近位指節(PIP)", neg: { id: "pip-t-ext" }, pos: { id: "pip-t-flex" }, swapRightLabels: true },
+  { section: "近位指節(PIP)", neg: { id: "pip-i-ext" }, pos: { id: "pip-i-flex" }, swapRightLabels: true },
+  { section: "近位指節(PIP)", neg: { id: "pip-m-ext" }, pos: { id: "pip-m-flex" }, swapRightLabels: true },
+  { section: "近位指節(PIP)", neg: { id: "pip-r-ext" }, pos: { id: "pip-r-flex" }, swapRightLabels: true },
+  { section: "近位指節(PIP)", neg: { id: "pip-l-ext" }, pos: { id: "pip-l-flex" }, swapRightLabels: true },
 
 
-  { section: "股", neg: { id: "hip-ext" }, pos: { id: "hip-flex" } },
-  { section: "股", neg: { id: "hip-add" }, pos: { id: "hip-abd" } },
-  { section: "股", neg: { id: "hip-ir" }, pos: { id: "hip-er" } },
+  { section: "股", neg: { id: "hip-ext" }, pos: { id: "hip-flex" }, swapRightLabels: true },
+  { section: "股", neg: { id: "hip-add" }, pos: { id: "hip-abd" }, swapRightLabels: true },
+  { section: "股", neg: { id: "hip-ir" }, pos: { id: "hip-er" }, swapRightLabels: true },
 
   { section: "膝", neg: { id: "knee-ext" }, pos: { id: "knee-flex" } },
 

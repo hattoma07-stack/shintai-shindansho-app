@@ -109,7 +109,14 @@ export function RomAxisRuler({
         ticks
           .filter((d) => d % CAP_LABEL_STEP === 0)
           .map((d) => (
-            <text key={`n${d}`} x={degToX(d)} y={12} fontSize={10} fill="#333333" textAnchor="middle">
+            <text
+              key={`n${d}`}
+              x={degToX(d)}
+              y={12}
+              fontSize={10}
+              fill="#333333"
+              textAnchor={degToX(d) < 8 ? "start" : degToX(d) > width - 8 ? "end" : "middle"}
+            >
               {Math.abs(d)}
             </text>
           ))}
