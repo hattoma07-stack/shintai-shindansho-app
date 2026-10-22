@@ -2,7 +2,7 @@ import type { Patient } from "../types";
 import { ROM_MMT_AXES } from "../data/romMmtAxes";
 import { ROM_MMT_ROWS } from "../data/romMmtRows";
 import type { RomMmtRowDef } from "../data/romMmtRows";
-import { RomAxisRuler, RomArrowMarkerDefs } from "./RomAxisRuler";
+import { RomAxisRuler } from "./RomAxisRuler";
 import { mmtToSymbol } from "../utils/mmt";
 
 const ROW_BY_ID: Record<string, RomMmtRowDef> = Object.fromEntries(ROM_MMT_ROWS.map((r) => [r.id, r]));
@@ -84,11 +84,6 @@ export function RomMmtPrintSection({ patient }: { patient: Patient }) {
 
   return (
     <div className="rom-graphic-wrap">
-      <RomArrowMarkerDefs />
-      <div className="rom-graphic-cols-label">
-        <span>右</span>
-        <span>左</span>
-      </div>
       <table className="rom-graphic-table">
         <tbody>
           {ROM_MMT_AXES.map((axis, idx) => {
@@ -99,6 +94,7 @@ export function RomMmtPrintSection({ patient }: { patient: Patient }) {
             return (
               <tr key={idx} className={showSection ? "section-start" : undefined}>
                 <td className="rom-graphic-side">
+                  {showSection && axis.section === "肩" && <span className="rom-side-tag rom-side-tag-right">右</span>}
                   <SideCell
                     axisNegId={axis.neg?.id}
                     axisPosId={axis.pos?.id}
@@ -112,6 +108,7 @@ export function RomMmtPrintSection({ patient }: { patient: Patient }) {
                 </td>
                 <td className="rom-graphic-section">{showSection ? axis.section : ""}</td>
                 <td className="rom-graphic-side">
+                  {showSection && axis.section === "肩" && <span className="rom-side-tag rom-side-tag-left">左</span>}
                   <SideCell
                     axisNegId={axis.neg?.id}
                     axisPosId={axis.pos?.id}

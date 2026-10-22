@@ -1037,6 +1037,26 @@ button {
 
 .rom-graphic-side {
   width: 46%;
+  position: relative;
+}
+
+/* 「右」「左」は枠の外側（肩の行の高さ）に表示する */
+.rom-side-tag {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.rom-side-tag-right {
+  right: 100%;
+  margin-right: 20px;
+}
+
+.rom-side-tag-left {
+  left: 100%;
+  margin-left: 20px;
 }
 
 .rom-axis-cell {
@@ -1055,7 +1075,7 @@ button {
 .rom-axis-label {
   white-space: nowrap;
   font-size: 0.72rem;
-  min-width: 60px;
+  min-width: 44px;
 }
 
 .rom-axis-label-left {

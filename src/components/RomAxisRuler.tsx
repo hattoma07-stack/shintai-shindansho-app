@@ -28,8 +28,7 @@ export function RomAxisRuler({
   width = 210,
   height = 16,
 }: Props) {
-  const hasNegSide = negRef > 0 || negVal != null;
-  const negScale = hasNegSide ? NEG_SCALE : 0;
+  const negScale = NEG_SCALE;
   const posScale = POS_SCALE;
   const total = negScale + posScale;
   const pxPerDeg = width / total;
@@ -47,9 +46,10 @@ export function RomAxisRuler({
 
   const hasNeg = negVal != null && negVal > 0;
   const hasPos = posVal != null && posVal > 0;
-  const startDeg = hasNeg ? -(negVal as number) : 0;
-  const endDeg = hasPos ? (posVal as number) : 0;
+  const startDeg = hasNeg ? -Math.min(negVal as number, negScale) : 0;
+  const endDeg = hasPos ? Math.min(posVal as number, posScale) : 0;
   const showArrow = hasNeg || hasPos;
+  const onlyZero = !showArrow && (negVal === 0 || posVal === 0);
 
   const topY = showScale ? 12 : 0;
   const baseY = topY + 2;
@@ -119,7 +119,7 @@ export function RomAxisRuler({
         );
       })}
 
-      {/* 測定値の矢印 */}
+      {/* 測定値の矢印（矢じりは長さに関わらず一定サイズで描く） */}
       {showArrow && (
         <g>
           <line
@@ -128,24 +128,21 @@ export function RomAxisRuler({
             x2={degToX(endDeg)}
             y2={midY}
             stroke="#000000"
-            strokeWidth={1.6}
-            markerStart={hasNeg ? "url(#romArrowHead)" : undefined}
-            markerEnd={hasPos ? "url(#romArrowHead)" : undefined}
+            strokeWidth={2.4}
           />
+          {hasPos && <ArrowHead tipX={degToX(endDeg)} y={midY} dir={flip ? -1 : 1} />}
+          {hasNeg && <ArrowHead tipX={degToX(startDeg)} y={midY} dir={flip ? 1 : -1} />}
         </g>
       )}
+      {/* 0°と入力された場合は0の位置に印を付ける */}
+      {onlyZero && <circle cx={degToX(0)} cy={midY} r={3.5} fill="#000000" />}
     </svg>
   );
 }
 
-export function RomArrowMarkerDefs() {
-  return (
-    <svg width={0} height={0}>
-      <defs>
-        <marker id="romArrowHead" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse">
-          <path d="M0,0 L6,3 L0,6 Z" fill="#000" />
-        </marker>
-      </defs>
-    </svg>
-  );
+const HEAD = 10;
+
+function ArrowHead({ tipX, y, dir }: { tipX: number; y: number; dir: 1 | -1 }) {
+  const baseX = tipX - dir * HEAD;
+  return <polygon points={`${tipX},${y} ${baseX},${y - HEAD * 0.45} ${baseX},${y + HEAD * 0.45}`} fill="#000000" />;
 }
