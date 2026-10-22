@@ -44,12 +44,20 @@ export function RomAxisRuler({
     ticks.push(d);
   }
 
-  const hasNeg = negVal != null && negVal > 0;
-  const hasPos = posVal != null && posVal > 0;
-  const startDeg = hasNeg ? -Math.min(negVal as number, negScale) : 0;
-  const endDeg = hasPos ? Math.min(posVal as number, posScale) : 0;
-  const showArrow = hasNeg || hasPos;
-  const onlyZero = !showArrow && (negVal === 0 || posVal === 0);
+  // 入力された側（0°やマイナス値を含む）の端に矢じりを付ける。伸展側の値が
+  // マイナスなら（例：-10°）、0より屈曲側にずれた位置が端点になる。
+  const hasNeg = negVal != null;
+  const hasPos = posVal != null;
+  const clampDeg = (d: number) => Math.max(-negScale, Math.min(posScale, d));
+  const startDeg = hasNeg ? clampDeg(-(negVal as number)) : 0;
+  const endDeg = hasPos ? clampDeg(posVal as number) : 0;
+  const showArrow = (hasNeg || hasPos) && startDeg !== endDeg;
+  const onlyZero = (hasNeg || hasPos) && startDeg === endDeg;
+  // 端点から見て、もう一方の端と反対向きが矢じりの向き
+  const headDir = (fromDeg: number, otherDeg: number): 1 | -1 => {
+    const degDir = fromDeg <= otherDeg ? -1 : 1;
+    return (flip ? -degDir : degDir) as 1 | -1;
+  };
 
   // 矢印が短い（値が近い）ときは矢じりも小さくして、線が矢じりに隠れないようにする
   const arrowLen = Math.abs(degToX(endDeg) - degToX(startDeg));
@@ -134,12 +142,12 @@ export function RomAxisRuler({
             stroke="#000000"
             strokeWidth={3.5}
           />
-          {hasPos && <ArrowHead tipX={degToX(endDeg)} y={midY} dir={flip ? -1 : 1} size={headSize} />}
-          {hasNeg && <ArrowHead tipX={degToX(startDeg)} y={midY} dir={flip ? 1 : -1} size={headSize} />}
+          {hasPos && <ArrowHead tipX={degToX(endDeg)} y={midY} dir={headDir(endDeg, startDeg)} size={headSize} />}
+          {hasNeg && <ArrowHead tipX={degToX(startDeg)} y={midY} dir={headDir(startDeg, endDeg)} size={headSize} />}
         </g>
       )}
       {/* 0°と入力された場合は0の位置に印を付ける */}
-      {onlyZero && <circle cx={degToX(0)} cy={midY} r={5.5} fill="#000000" />}
+      {onlyZero && <circle cx={degToX(startDeg)} cy={midY} r={5.5} fill="#000000" />}
     </svg>
   );
 }
