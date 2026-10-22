@@ -25,6 +25,8 @@ export const ROM_MMT_AXES: RomAxisDef[] = [
 
   { section: "前腕", neg: { id: "forearm-pro" }, pos: { id: "forearm-sup" } },
 
+  { section: "手", neg: { id: "wrist-flex" }, pos: { id: "wrist-ext" } },
+
   { section: "中手指節(MP)", neg: { id: "mp-t-ext" }, pos: { id: "mp-t-flex" } },
   { section: "中手指節(MP)", neg: { id: "mp-i-ext" }, pos: { id: "mp-i-flex" } },
   { section: "中手指節(MP)", neg: { id: "mp-m-ext" }, pos: { id: "mp-m-flex" } },
@@ -35,7 +37,7 @@ export const ROM_MMT_AXES: RomAxisDef[] = [
   { section: "近位指節(PIP)", neg: { id: "pip-m-ext" }, pos: { id: "pip-m-flex" } },
   { section: "近位指節(PIP)", neg: { id: "pip-r-ext" }, pos: { id: "pip-r-flex" } },
   { section: "近位指節(PIP)", neg: { id: "pip-l-ext" }, pos: { id: "pip-l-flex" } },
-  { section: "DIP", neg: null, pos: { id: "finger-dip" } },
+
 
   { section: "股", neg: { id: "hip-ext" }, pos: { id: "hip-flex" } },
   { section: "股", neg: { id: "hip-add" }, pos: { id: "hip-abd" } },
