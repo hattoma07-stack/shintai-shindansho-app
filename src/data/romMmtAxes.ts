@@ -22,8 +22,8 @@ export const ROM_MMT_AXES: RomAxisDef[] = [
   { section: "体幹", neg: { id: "tlspine-leftbend" }, pos: { id: "tlspine-rightbend" } },
 
   { section: "肩", neg: { id: "shoulder-ext" }, pos: { id: "shoulder-flex" }, swapRightLabels: true },
-  { section: "肩", neg: { id: "shoulder-add" }, pos: { id: "shoulder-abd" } },
-  { section: "肩", neg: { id: "shoulder-ir" }, pos: { id: "shoulder-er" } },
+  { section: "肩", neg: { id: "shoulder-add" }, pos: { id: "shoulder-abd" }, swapLeftLabels: true },
+  { section: "肩", neg: { id: "shoulder-ir" }, pos: { id: "shoulder-er" }, swapLeftLabels: true },
 
   { section: "肘", neg: { id: "elbow-ext" }, pos: { id: "elbow-flex" } },
 
@@ -47,7 +47,7 @@ export const ROM_MMT_AXES: RomAxisDef[] = [
   { section: "股", neg: { id: "hip-add" }, pos: { id: "hip-abd" }, swapRightLabels: true },
   { section: "股", neg: { id: "hip-ir" }, pos: { id: "hip-er" }, swapRightLabels: true },
 
-  { section: "膝", neg: { id: "knee-ext" }, pos: { id: "knee-flex" } },
+  { section: "膝", neg: { id: "knee-ext" }, pos: { id: "knee-flex" }, swapLeftLabels: true },
 
   { section: "足", neg: { id: "ankle-plantar" }, pos: { id: "ankle-dorsi" }, swapLeftLabels: true },
 
