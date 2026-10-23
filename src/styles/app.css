@@ -1230,3 +1230,9 @@ button {
     padding: 4px;
   }
 }
+
+.no-side-cell {
+  text-align: center;
+  color: #888;
+  font-size: 0.8rem;
+}

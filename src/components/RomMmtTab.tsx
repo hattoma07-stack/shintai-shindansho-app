@@ -19,6 +19,8 @@ export function RomMmtTab({ value, onChange }: Props) {
   };
 
   let lastSection = "";
+  // 頸椎・胸腰椎は左右の区別がないため、入力欄は1組（右の欄）だけにする
+  const NO_SIDE_SECTIONS = ["頸椎", "胸腰椎"];
 
   return (
     <div className="tab-panel">
@@ -62,6 +64,12 @@ export function RomMmtTab({ value, onChange }: Props) {
                     label={`${row.movement} 右MMT`}
                   />
                 </td>
+                {NO_SIDE_SECTIONS.includes(row.section) ? (
+                  <td colSpan={2} className="no-side-cell">
+                    左右の区別なし
+                  </td>
+                ) : (
+                  <>
                 <td>
                   <input
                     className="rom-input"
@@ -77,6 +85,8 @@ export function RomMmtTab({ value, onChange }: Props) {
                     label={`${row.movement} 左MMT`}
                   />
                 </td>
+                  </>
+                )}
               </tr>
             );
           })}
