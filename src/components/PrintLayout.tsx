@@ -354,22 +354,22 @@ export function PrintLayout({ patient }: { patient: Patient }) {
                   <td className="adl-rating-cell">
                     {item.laterality ? (
                       <>
-                        右<span className="circle-mark">{v?.ratingRight || ""}</span>　左
-                        <span className="circle-mark">{v?.ratingLeft || ""}</span>
+                        右<span>{v?.ratingRight || ""}</span>　左
+                        <span>{v?.ratingLeft || ""}</span>
                       </>
                     ) : (
-                      adlRating(v) ? <span className="circle-mark">{adlRating(v)}</span> : null
+                      adlRating(v) ? <span>{adlRating(v)}</span> : null
                     )}
                   </td>
                   <td className="adl-label-cell">{right.label}</td>
                   <td className="adl-rating-cell">
                     {right.laterality ? (
                       <>
-                        右<span className="circle-mark">{vr?.ratingRight || ""}</span>　左
-                        <span className="circle-mark">{vr?.ratingLeft || ""}</span>
+                        右<span>{vr?.ratingRight || ""}</span>　左
+                        <span>{vr?.ratingLeft || ""}</span>
                       </>
                     ) : (
-                      adlRating(vr) ? <span className="circle-mark">{adlRating(vr)}</span> : null
+                      adlRating(vr) ? <span>{adlRating(vr)}</span> : null
                     )}
                   </td>
                 </tr>
