@@ -60,8 +60,8 @@ export const ROM_MMT_ROWS: RomMmtRowDef[] = [
 
   { id: "cspine-flex", section: "頸椎", movement: "前屈", refRom: "60°" },
   { id: "cspine-ext", section: "頸椎", movement: "後屈", refRom: "50°" },
-  { id: "cspine-leftbend", section: "頸椎", movement: "左側屈", refRom: "50°" },
-  { id: "cspine-rightbend", section: "頸椎", movement: "右側屈", refRom: "50°" },
+  { id: "cspine-leftbend", section: "頸椎", movement: "左屈", refRom: "50°" },
+  { id: "cspine-rightbend", section: "頸椎", movement: "右屈", refRom: "50°" },
 
   { id: "tlspine-flex", section: "胸腰椎", movement: "前屈", refRom: "45°" },
   { id: "tlspine-ext", section: "胸腰椎", movement: "後屈", refRom: "30°" },

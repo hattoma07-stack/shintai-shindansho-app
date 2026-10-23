@@ -128,17 +128,32 @@ export function RomMmtPrintSection({ patient }: { patient: Patient }) {
                 <td className="rom-graphic-section">{showSection ? axis.section : ""}</td>
                 <td className="rom-graphic-side">
                   {showSection && axis.section === "肩" && <span className="rom-side-tag rom-side-tag-left">左</span>}
-                  <SideCell
-                    axisNegId={axis.neg?.id}
-                    axisPosId={axis.pos?.id}
-                    negRef={negRef}
-                    posRef={posRef}
-                    romValues={patient.romMmt}
-                    side="leftRom"
-                    swapLabels={!!axis.swapLeftLabels}
-                    flip={!!axis.swapLeftLabels}
-                    showScale={idx === 0}
-                  />
+                  {axis.rightCellAxis ? (
+                    // 頸：右セルには別の軸を表示し、値は左セルと同じ（右）入力欄を使う
+                    <SideCell
+                      axisNegId={axis.rightCellAxis.neg?.id}
+                      axisPosId={axis.rightCellAxis.pos?.id}
+                      negRef={refDeg(axis.rightCellAxis.neg?.id)}
+                      posRef={refDeg(axis.rightCellAxis.pos?.id)}
+                      romValues={patient.romMmt}
+                      side="rightRom"
+                      swapLabels={false}
+                      flip={false}
+                      showScale={idx === 0}
+                    />
+                  ) : (
+                    <SideCell
+                      axisNegId={axis.neg?.id}
+                      axisPosId={axis.pos?.id}
+                      negRef={negRef}
+                      posRef={posRef}
+                      romValues={patient.romMmt}
+                      side="leftRom"
+                      swapLabels={!!axis.swapLeftLabels}
+                      flip={!!axis.swapLeftLabels}
+                      showScale={idx === 0}
+                    />
+                  )}
                 </td>
               </tr>
             );

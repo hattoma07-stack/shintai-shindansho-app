@@ -12,11 +12,18 @@ export type RomAxisDef = {
   swapRightLabels?: boolean;
   // true のとき、左側（左の測定）のみ左右の文字ラベルの位置を入れ替える
   swapLeftLabels?: boolean;
+  // 指定すると1行を左右2つのセルに分け、左セルに本軸、右セルにこの軸を表示する（頸など）
+  rightCellAxis?: { neg: RomAxisSide; pos: RomAxisSide };
 };
 
 export const ROM_MMT_AXES: RomAxisDef[] = [
-  { section: "頸", neg: { id: "cspine-ext" }, pos: { id: "cspine-flex" }, swapRightLabels: true },
-  { section: "頸", neg: { id: "cspine-leftbend" }, pos: { id: "cspine-rightbend" } },
+  {
+    section: "頸",
+    neg: { id: "cspine-ext" },
+    pos: { id: "cspine-flex" },
+    swapRightLabels: true,
+    rightCellAxis: { neg: { id: "cspine-leftbend" }, pos: { id: "cspine-rightbend" } },
+  },
 
   { section: "体幹", neg: { id: "tlspine-ext" }, pos: { id: "tlspine-flex" }, swapRightLabels: true },
   { section: "体幹", neg: { id: "tlspine-leftbend" }, pos: { id: "tlspine-rightbend" } },
