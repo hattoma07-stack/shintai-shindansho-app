@@ -37,7 +37,6 @@ function SideCell({
   flip,
   showScale,
   swapLabels,
-  hideMmt,
 }: {
   axisNegId?: string;
   axisPosId?: string;
@@ -48,7 +47,6 @@ function SideCell({
   flip: boolean;
   showScale: boolean;
   swapLabels: boolean;
-  hideMmt?: "left" | "right";
 }) {
   const mmtSide = side === "rightRom" ? "rightMmt" : "leftMmt";
   const negRow = axisNegId ? ROW_BY_ID[axisNegId] : undefined;
@@ -61,7 +59,6 @@ function SideCell({
   const labelOf = (row: RomMmtRowDef | undefined, mmt: string, pos: "left" | "right", hideFinger: boolean) => {
     if (!row) return "";
     const text = movementLabel(row, hideFinger);
-    if (hideMmt === pos) return text;
     return pos === "left" ? (
       <>
         ({mmt || " "}){text}
@@ -124,7 +121,6 @@ export function RomMmtPrintSection({ patient }: { patient: Patient }) {
                     romValues={patient.romMmt}
                     side="rightRom"
                     swapLabels={!!axis.swapRightLabels}
-                    hideMmt={axis.hideMmt}
                     flip={!!axis.swapRightLabels}
                     showScale={idx === 0}
                   />
@@ -140,7 +136,6 @@ export function RomMmtPrintSection({ patient }: { patient: Patient }) {
                     romValues={patient.romMmt}
                     side="leftRom"
                     swapLabels={!!axis.swapLeftLabels}
-                    hideMmt={axis.hideMmt}
                     flip={!!axis.swapLeftLabels}
                     showScale={idx === 0}
                   />
