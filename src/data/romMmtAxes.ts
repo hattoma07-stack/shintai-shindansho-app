@@ -37,7 +37,7 @@ export const ROM_MMT_AXES: RomAxisDef[] = [
   { section: "肩", neg: { id: "shoulder-add" }, pos: { id: "shoulder-abd" }, swapRightLabels: true },
   { section: "肩", neg: { id: "shoulder-ir" }, pos: { id: "shoulder-er" }, swapRightLabels: true },
 
-  { section: "肘", neg: { id: "elbow-ext" }, pos: { id: "elbow-flex" } },
+  { section: "肘", neg: { id: "elbow-ext" }, pos: { id: "elbow-flex" }, swapRightLabels: true },
 
   { section: "前腕", neg: { id: "forearm-pro" }, pos: { id: "forearm-sup" }, swapRightLabels: true },
 
