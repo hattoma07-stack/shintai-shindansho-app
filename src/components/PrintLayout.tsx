@@ -358,7 +358,7 @@ export function PrintLayout({ patient }: { patient: Patient }) {
                         <span className="circle-mark">{v?.ratingLeft || ""}</span>
                       </>
                     ) : (
-                      <Choice options={["◯", "△", "×"]} selected={adlRating(v)} />
+                      adlRating(v) ? <span className="circle-mark">{adlRating(v)}</span> : null
                     )}
                   </td>
                   <td className="adl-label-cell">{right.label}</td>
@@ -369,7 +369,7 @@ export function PrintLayout({ patient }: { patient: Patient }) {
                         <span className="circle-mark">{vr?.ratingLeft || ""}</span>
                       </>
                     ) : (
-                      <Choice options={["◯", "△", "×"]} selected={adlRating(vr)} />
+                      adlRating(vr) ? <span className="circle-mark">{adlRating(vr)}</span> : null
                     )}
                   </td>
                 </tr>
