@@ -12,11 +12,13 @@ export type RomAxisDef = {
   swapRightLabels?: boolean;
   // true のとき、左側（左の測定）のみ左右の文字ラベルの位置を入れ替える
   swapLeftLabels?: boolean;
+  // 指定した側（各セルの左端/右端）の評価（MMT記号の括弧）を表示しない
+  hideMmt?: "left" | "right";
 };
 
 export const ROM_MMT_AXES: RomAxisDef[] = [
-  { section: "頸", neg: { id: "cspine-ext" }, pos: { id: "cspine-flex" }, swapRightLabels: true },
-  { section: "頸", neg: { id: "cspine-leftbend" }, pos: { id: "cspine-rightbend" } },
+  { section: "頸", neg: { id: "cspine-ext" }, pos: { id: "cspine-flex" }, swapRightLabels: true, hideMmt: "right" },
+  { section: "頸", neg: { id: "cspine-leftbend" }, pos: { id: "cspine-rightbend" }, hideMmt: "left" },
 
   { section: "体幹", neg: { id: "tlspine-ext" }, pos: { id: "tlspine-flex" }, swapRightLabels: true },
   { section: "体幹", neg: { id: "tlspine-leftbend" }, pos: { id: "tlspine-rightbend" } },
