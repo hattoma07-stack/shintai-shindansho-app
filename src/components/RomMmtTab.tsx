@@ -65,9 +65,7 @@ export function RomMmtTab({ value, onChange }: Props) {
                   />
                 </td>
                 {NO_SIDE_SECTIONS.includes(row.section) ? (
-                  <td colSpan={2} className="no-side-cell">
-                    左右の区別なし
-                  </td>
+                  <td colSpan={2} className="no-side-cell" />
                 ) : (
                   <>
                 <td>
