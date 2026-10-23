@@ -25,8 +25,13 @@ export const ROM_MMT_AXES: RomAxisDef[] = [
     rightCellAxis: { neg: { id: "cspine-leftbend" }, pos: { id: "cspine-rightbend" } },
   },
 
-  { section: "体幹", neg: { id: "tlspine-ext" }, pos: { id: "tlspine-flex" }, swapRightLabels: true },
-  { section: "体幹", neg: { id: "tlspine-leftbend" }, pos: { id: "tlspine-rightbend" } },
+  {
+    section: "体幹",
+    neg: { id: "tlspine-ext" },
+    pos: { id: "tlspine-flex" },
+    swapRightLabels: true,
+    rightCellAxis: { neg: { id: "tlspine-leftbend" }, pos: { id: "tlspine-rightbend" } },
+  },
 
   { section: "肩", neg: { id: "shoulder-ext" }, pos: { id: "shoulder-flex" }, swapRightLabels: true },
   { section: "肩", neg: { id: "shoulder-add" }, pos: { id: "shoulder-abd" }, swapLeftLabels: true },
