@@ -713,6 +713,13 @@ button {
   display: block;
 }
 
+/* A4縦：1つの区画を用紙幅いっぱいに表示する */
+.pdf-export-a4 .print-a3-half {
+  flex: none;
+  width: 100%;
+  border-left: none;
+}
+
 .print-doc {
   font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
   color: #000;

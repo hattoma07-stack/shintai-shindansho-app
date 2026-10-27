@@ -4,7 +4,7 @@ import { SummaryTab } from "./SummaryTab";
 import { StatusTab } from "./StatusTab";
 import { RomMmtTab } from "./RomMmtTab";
 import { PrintLayout } from "./PrintLayout";
-import { exportPatientPdf } from "../utils/exportPdf";
+import { exportPatientPdf, exportPatientPdfA4 } from "../utils/exportPdf";
 
 type Props = {
   patient: Patient;
@@ -26,12 +26,16 @@ export function PatientEditor({ patient, onChange, onBack }: Props) {
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
 
-  const handleExportPdf = async () => {
+  const handleExportPdf = async (size: "a3" | "a4") => {
     setExporting(true);
     setExportError(null);
     try {
       const name = patient.summary.name || "患者";
-      await exportPatientPdf(`${name}_身体障害者診断書.pdf`);
+      if (size === "a4") {
+        await exportPatientPdfA4(`${name}_身体障害者診断書_A4.pdf`);
+      } else {
+        await exportPatientPdf(`${name}_身体障害者診断書.pdf`);
+      }
     } catch (e) {
       setExportError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -46,8 +50,11 @@ export function PatientEditor({ patient, onChange, onBack }: Props) {
           ← 患者一覧へ戻る
         </button>
         <span className="editor-patient-name">{patient.summary.name || "（氏名未入力）"}</span>
-        <button className="primary-btn" onClick={handleExportPdf} disabled={exporting}>
+        <button className="primary-btn" onClick={() => handleExportPdf("a3")} disabled={exporting}>
           {exporting ? "PDF作成中..." : "PDFを保存（A3横2枚）"}
+        </button>
+        <button className="secondary-btn" onClick={() => handleExportPdf("a4")} disabled={exporting}>
+          {exporting ? "PDF作成中..." : "PDFを保存（A4縦3枚）"}
         </button>
       </div>
       <p className="no-print export-hint">
